@@ -8,3 +8,4 @@ const forgetpass = '/FORGETPASS';
 const editaccount = '/EDITACCOUNT';
 const mycourse = '/MYCOURSE';
 const search = '/SEARCH';
+const nav = '/NAV';

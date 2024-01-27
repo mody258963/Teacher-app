@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/web_servese/reproserty/myRepo.dart';
 
 part 'email_auth_state.dart';
@@ -35,6 +36,8 @@ class EmailAuthCubit extends Cubit<EmailAuthState> {
         'cpassword': cpassword,
         'link': social
       });
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setString('user_id', result);
       print('=====cubit====$result');
       emit(SignupTeacherSuccess(userId: result));
     } catch (e) {

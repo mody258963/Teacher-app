@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/costanse/pages.dart';
+import 'package:teacher/presntation_lyar/screens/NavigationBar.dart';
 import 'package:teacher/presntation_lyar/widgets/app_router.dart';
 
 String? initialRoute;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initialRoute = signup;
 
+  Future<String?> getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_id');
+  }
+
+  if (getUserId() != null) {
+    initialRoute = nav;
+  } else {
+    initialRoute = signup;
+  }
   runApp(MyApp(
     appRouter: AppRouter(),
   ));

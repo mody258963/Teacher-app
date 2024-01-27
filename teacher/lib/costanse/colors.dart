@@ -6,4 +6,5 @@ class MyColors {
   static const Color gray = Color(0xff424242);
   static const Color realblack = Color(0xff000000);
   static const Color whitefade = Color(0x62ffffff);
+  static const Color backcolor = Color.fromARGB(255, 7, 17, 8);
 }

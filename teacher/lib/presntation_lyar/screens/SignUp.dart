@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUp> {
         if (state is SignupTeacherSuccess) {
           Navigator.maybePop(context);
           Navigator.of(context, rootNavigator: true)
-              .pushReplacementNamed(logain);
+              .pushReplacementNamed(homescreen);
         }
       },
       child: Container(),
