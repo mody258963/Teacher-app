@@ -1,10 +1,10 @@
 class Course {
-  int id;
-  String title;
-  String description;
-  int teacherId;
-  int categoryId;
-  CoursePivot pivot;
+  int? id;
+  String? title;
+  String? description;
+  int? teacherId;
+  int? categoryId;
+  CoursePivot? pivot;
 
   Course({
     required this.id,

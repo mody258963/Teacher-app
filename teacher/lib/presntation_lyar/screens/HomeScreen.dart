@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teacher/costanse/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: Scaffold(
+    return const MaterialApp(home: Scaffold(backgroundColor: MyColors.backcolor,
       body: Center(child: Text('home'),)
     ),);
   }

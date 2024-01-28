@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teacher/besnese_logic/email_auth/email_auth_cubit.dart';
 import 'package:teacher/costanse/pages.dart';
+import 'package:teacher/presntation_lyar/screens/CourseScreen.dart';
 import 'package:teacher/presntation_lyar/screens/HomeScreen.dart';
 import 'package:teacher/presntation_lyar/screens/NavigationBar.dart';
+import 'package:teacher/presntation_lyar/screens/ProfileScreen.dart';
 import 'package:teacher/presntation_lyar/screens/SignUp.dart';
 import 'package:teacher/presntation_lyar/screens/loginScreen.dart';
 import 'package:teacher/web_servese/dio/web_serv.dart';
@@ -27,11 +29,7 @@ class AppRouter {
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case nav:
-        return MaterialPageRoute(
-          builder: (context) => NavigationBars(),
-        );
-      case logain:
+       case logain:
         return MaterialPageRoute(
             builder: (_) => BlocProvider<EmailAuthCubit>.value(
                   value: emailAuthCubit!,
@@ -45,15 +43,15 @@ class AppRouter {
                 ));
       case homescreen:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider<EmailAuthCubit>.value(
-                  value: emailAuthCubit!,
+            builder: (_) => BlocProvider<GetMethodCubit>.value(
+                  value: getMethodCubit!,
                   child: HomeScreen(),
                 ));
       case account:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider<EmailAuthCubit>.value(
-                  value: emailAuthCubit!,
-                  child: Container(),
+            builder: (_) => BlocProvider<GetMethodCubit>.value(
+                  value: getMethodCubit!,
+                  child: ProfileScreen(),
                 ));
       case genraldata:
         return MaterialPageRoute(
@@ -78,12 +76,22 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider<UplodingDataCubit>.value(value: uplodingDataCubit!),
-              BlocProvider<EmailAuthCubit>.value(value: emailAuthCubit!)
+              BlocProvider<GetMethodCubit>.value(value: getMethodCubit!)
             ],
-            child: Container(),
+            child: CourseScreen(),
           ),
         );
 
+   case nav:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<GetMethodCubit>.value(value: getMethodCubit!),
+              BlocProvider<UplodingDataCubit>.value(value: uplodingDataCubit!)
+            ],
+            child: NavigationBars(),
+          ),
+        );
       case search:
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(

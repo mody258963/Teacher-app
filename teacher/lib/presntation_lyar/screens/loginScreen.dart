@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teacher/costanse/colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const MaterialApp(home: Scaffold(backgroundColor: MyColors.backcolor,
+      body: Center(child: Text('Login'),)
+    ),);
   }
 }

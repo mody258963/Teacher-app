@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/besnese_logic/email_auth/email_auth_cubit.dart';
 import 'package:teacher/besnese_logic/get_method/get_method_state.dart';
 import 'package:teacher/web_servese/model/course.dart';
+import 'package:teacher/web_servese/model/teacherCourse.dart';
 import 'package:teacher/web_servese/reproserty/myRepo.dart';
 
 import '../../web_servese/model/username.dart';
@@ -24,13 +26,30 @@ class GetMethodCubit extends Cubit<GetMethodState> {
     }
   }
 
-  Future<FutureOr<void>> emitGetAllCourseOfUser(String id) async {
+  Future<FutureOr<void>> emitGetAllCourseOfUser() async {
     try {
+        final prefs = await SharedPreferences.getInstance();
+        final id =  prefs.getString('user_id');
       print('======get=======$id');
       emit(LodingState());
       List<Course> posts = await myRepo.getAllCourseOfUser('get-course/user/$id');
       print('===posts====$posts');
       emit(CourseOfUserState(posts: posts));
+    } catch (e) {
+      print('========cubits=======${e.toString()}');
+    }
+  }
+
+
+  Future<FutureOr<void>> emitGetAllCourseOfTeacher() async {
+    try {
+        final prefs = await SharedPreferences.getInstance();
+        final id =  prefs.getString('user_id');
+      print('======get=======$id');
+      emit(LodingState());
+      List<TecherCourse> posts = await myRepo.getAllCourseOfTeacher('get-course/teacher/$id');
+      print('===posts====$posts');
+      emit(CourseOfTeacherState(posts: posts));
     } catch (e) {
       print('========cubits=======${e.toString()}');
     }
