@@ -15,7 +15,7 @@ class _CourseScreenState extends State<CourseScreen> {
   @override
   void initState() {
     super.initState();
-      context.read<GetMethodCubit>().emitGetAllCourseOfTeacher();
+    context.read<GetMethodCubit>().emitGetAllCourseOfTeacher();
   }
 
   Widget _title(String title, BuildContext context) {
@@ -26,15 +26,15 @@ class _CourseScreenState extends State<CourseScreen> {
   }
 
   Widget _buildGetAllDataSumbit(BuildContext context) {
-  double width = MediaQuery.of(context).size.width;
-  double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return BlocBuilder<GetMethodCubit, GetMethodState>(
         builder: (context, state) {
       if (state is CourseOfTeacherState) {
         final allUsersList = state.posts;
         return SizedBox(
           height: height * 0.767,
-          width:  width * 0.95,
+          width: width * 0.95,
           child: ListView.builder(
               itemCount: allUsersList.length,
               itemBuilder: (context, index) {
@@ -42,9 +42,26 @@ class _CourseScreenState extends State<CourseScreen> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Colors.yellowAccent),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: Colors.yellowAccent),
                     height: height * 0.20,
-                    child: Text(user.title.toString()),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            user.title.toString(),
+                            style: TextStyle(fontSize: width * 0.10),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print('==============fododod');
+                            },
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 );
               }),
@@ -65,11 +82,11 @@ class _CourseScreenState extends State<CourseScreen> {
   //       children: [Text(title),
   //       Text(),
   //         GestureDetector(
-            
+
   //           onTap: () {
-              
+
   //           },
-    
+
   //         ),
   //       ],
   //     ),
