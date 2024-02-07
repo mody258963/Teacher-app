@@ -17,8 +17,10 @@ void main() async {
   if (getUserId() != null) {
     initialRoute = nav;
   } else {
-    initialRoute = signup;
+    initialRoute = nav;
   }
+
+  print(initialRoute);
   runApp(MyApp(
     appRouter: AppRouter(),
   ));

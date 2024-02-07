@@ -130,7 +130,7 @@ class _SignUpState extends State<SignUp> {
                     passwordcontroller.text,
                     cpasswordcontroller.text,
                     socialcontroller.text);
-              })
+              })  
             ],
           ),
         ),
