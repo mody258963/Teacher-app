@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/costanse/colors.dart';
 import 'package:teacher/presntation_lyar/screens/CourseScreen.dart';
 import 'package:teacher/presntation_lyar/screens/HomeScreen.dart';
 import 'package:teacher/presntation_lyar/screens/ProfileScreen.dart';
 import 'package:teacher/presntation_lyar/screens/SearchScreen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class NavigationBars extends StatefulWidget {
   const NavigationBars({super.key});

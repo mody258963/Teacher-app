@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart ';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/besnese_logic/get_method/get_method_cubit.dart';
 import 'package:teacher/besnese_logic/get_method/get_method_state.dart';
 import 'package:teacher/costanse/colors.dart';
@@ -15,7 +16,7 @@ class _CourseScreenState extends State<CourseScreen> {
   @override
   void initState() {
     super.initState();
-      context.read<GetMethodCubit>().emitGetAllCourseOfTeacher();
+    context.read<GetMethodCubit>().emitGetAllCourseOfTeacher();
   }
 
   Widget _title(String title, BuildContext context) {
@@ -25,26 +26,91 @@ class _CourseScreenState extends State<CourseScreen> {
         style: TextStyle(color: Colors.white, fontSize: width * 0.12));
   }
 
-  Widget _buildGetAllDataSumbit(BuildContext context) {
-  double width = MediaQuery.of(context).size.width;
-  double height = MediaQuery.of(context).size.height;
+  PersistentBottomSheetController<void> _buttomsheet() {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return Scaffold.of(context).showBottomSheet<void>(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+        ), (BuildContext context) {
+      return Container(
+        height: height * 0.90,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[_buildLectureAllDataTeacher(context)],
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget _buildLectureAllDataTeacher(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return BlocBuilder<GetMethodCubit, GetMethodState>(
         builder: (context, state) {
-      if (state is CourseOfTeacherState) {
+      if (state is LectureOfCourseState) {
         final allUsersList = state.posts;
         return SizedBox(
           height: height * 0.767,
-          width:  width * 0.95,
+          width: width * 0.95,
           child: ListView.builder(
               itemCount: allUsersList.length,
               itemBuilder: (context, index) {
                 final user = allUsersList[index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Colors.yellowAccent),
-                    height: height * 0.20,
-                    child: Text(user.title.toString()),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          color: Colors.yellowAccent),
+                      height: height * 0.20,
+                      child: Text(user.title.toString()),
+                    ),
+                  ),
+                );
+              }),
+        );
+      }
+
+      return Container();
+    });
+  }
+
+  Widget _buildCourseAllDataTeacher(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return BlocBuilder<GetMethodCubit, GetMethodState>(
+        builder: (context, state) {
+      if (state is CourseOfTeacherState) {
+        final allUsersList = state.posts;
+        return SizedBox(
+          height: height * 0.767,
+          width: width * 0.95,
+          child: ListView.builder(
+              itemCount: allUsersList.length,
+              itemBuilder: (context, index) {
+                final user = allUsersList[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      _buttomsheet();
+                      context
+                          .read<GetMethodCubit>()
+                          .emitGetAllLectureOfCourse();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          color: Colors.yellowAccent),
+                      height: height * 0.20,
+                      child: Text(user.title.toString()),
+                    ),
                   ),
                 );
               }),
@@ -65,11 +131,11 @@ class _CourseScreenState extends State<CourseScreen> {
   //       children: [Text(title),
   //       Text(),
   //         GestureDetector(
-            
+
   //           onTap: () {
-              
+
   //           },
-    
+
   //         ),
   //       ],
   //     ),
@@ -91,7 +157,7 @@ class _CourseScreenState extends State<CourseScreen> {
                       EdgeInsets.only(top: height * 0.06, right: width * 0.50),
                   child: _title('Course', context),
                 ),
-                _buildGetAllDataSumbit(context)
+                _buildCourseAllDataTeacher(context)
               ],
             ),
           )),

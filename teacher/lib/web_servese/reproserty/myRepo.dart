@@ -2,6 +2,7 @@
 import 'package:teacher/presntation_lyar/screens/SignUp.dart';
 import 'package:teacher/web_servese/dio/web_serv.dart';
 import 'package:teacher/web_servese/model/course.dart';
+import 'package:teacher/web_servese/model/lecture.dart';
 import 'package:teacher/web_servese/model/teacherCourse.dart';
 import 'package:teacher/web_servese/model/username.dart';
 
@@ -30,6 +31,12 @@ class MyRepo {
     final courseList = names.map((names) => TecherCourse.fromJson(names)).toList();
     return courseList..shuffle();
   }
+    Future<List<Lecture>> getAllLectureOfCourse(String end) async {
+    final names = await nameWebService.get(end);
+    final courseList = names.map((names) => Lecture.fromJson(names)).toList();
+    return courseList..shuffle();
+  }
+
 
   Future<String> login(String end, Object data) async {
     try {

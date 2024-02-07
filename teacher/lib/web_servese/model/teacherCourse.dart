@@ -1,5 +1,5 @@
 class TecherCourse {
-  final int id;
+  late final int id;
   final String title;
   final String description;
 

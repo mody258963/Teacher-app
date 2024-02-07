@@ -9,10 +9,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+   Widget _title(String title, BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return Text(title,
+        style: TextStyle(color: Colors.white, fontSize: width * 0.12));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: Scaffold(backgroundColor: MyColors.backcolor,
-      body: Center(child: Text('home'),)
+        double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return  MaterialApp(home: Scaffold(backgroundColor: MyColors.backcolor,
+      body: Padding(
+                  padding:
+                      EdgeInsets.only(top: height * 0.06, right: width * 0.40),
+                  child: _title('Home', context),
+                ),
     ),);
   }
 }

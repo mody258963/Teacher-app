@@ -1,6 +1,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:teacher/web_servese/model/course.dart';
+import 'package:teacher/web_servese/model/lecture.dart';
 import 'package:teacher/web_servese/model/teacherCourse.dart';
 
 import '../../web_servese/model/username.dart';
@@ -32,6 +33,14 @@ class CourseOfTeacherState extends GetMethodState {
  final List<TecherCourse> posts;
 
   CourseOfTeacherState({required this.posts});
+
+
+}
+
+class LectureOfCourseState extends GetMethodState {
+ final List<Lecture> posts;
+
+  LectureOfCourseState({required this.posts});
 
 
 }
