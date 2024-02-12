@@ -63,7 +63,6 @@ class GetMethodCubit extends Cubit<GetMethodState> {
 
   Future<FutureOr<void>> emitGetAllLectureOfCourse() async {
     try {
-      print('======get=======');
           final prefs = await SharedPreferences.getInstance();
             final id = prefs.getInt('course_id');
 

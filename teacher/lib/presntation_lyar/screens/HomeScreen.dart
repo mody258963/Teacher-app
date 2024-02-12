@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:teacher/besnese_logic/get_method/get_method_cubit.dart';
+import 'package:teacher/besnese_logic/get_method/get_method_state.dart';
 import 'package:teacher/costanse/colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,11 +24,15 @@ class _HomeScreenState extends State<HomeScreen> {
         double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return  MaterialApp(home: Scaffold(backgroundColor: MyColors.backcolor,
-      body: Padding(
-                  padding:
-                      EdgeInsets.only(top: height * 0.06, right: width * 0.40),
-                  child: _title('Home', context),
-                ),
+      body: Column(
+        children: [
+          Padding(
+                      padding:
+                          EdgeInsets.only(top: height * 0.06, right: width * 0.40),
+                      child: _title('Home', context),
+                    ),
+        ],
+      ),
     ),);
   }
 }

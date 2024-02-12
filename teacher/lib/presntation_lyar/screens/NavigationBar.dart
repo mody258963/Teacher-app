@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:teacher/besnese_logic/get_method/get_method_cubit.dart';
 import 'package:teacher/costanse/colors.dart';
 import 'package:teacher/presntation_lyar/screens/CourseScreen.dart';
 import 'package:teacher/presntation_lyar/screens/HomeScreen.dart';
@@ -13,10 +16,17 @@ class NavigationBars extends StatefulWidget {
   State<NavigationBars> createState() => _NavigationBarsState();
 }
 
+
 class _NavigationBarsState extends State<NavigationBars> {
+@override
+  void didChangeDependencies() {
+    BlocProvider.of<GetMethodCubit>(context).emitGetAllCourseOfTeacher();
+    super.didChangeDependencies();
+  }
   List<PersistentBottomNavBarItem> _navBarItems() {
     return [
       PersistentBottomNavBarItem(
+     
         icon: Icon(Icons.home),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.grey,
@@ -40,7 +50,7 @@ class _NavigationBarsState extends State<NavigationBars> {
   }
 
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+      PersistentTabController();
   List<Widget> _screens() {
     return [
       HomeScreen(),

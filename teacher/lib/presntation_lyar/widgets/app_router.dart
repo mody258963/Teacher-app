@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teacher/besnese_logic/email_auth/email_auth_cubit.dart';
 import 'package:teacher/costanse/pages.dart';
+import 'package:teacher/presntation_lyar/screens/ContantScreen.dart';
 import 'package:teacher/presntation_lyar/screens/CourseScreen.dart';
 import 'package:teacher/presntation_lyar/screens/HomeScreen.dart';
+import 'package:teacher/presntation_lyar/screens/LectureScreen.dart';
 import 'package:teacher/presntation_lyar/screens/NavigationBar.dart';
 import 'package:teacher/presntation_lyar/screens/ProfileScreen.dart';
 import 'package:teacher/presntation_lyar/screens/SignUp.dart';
@@ -71,6 +73,7 @@ class AppRouter {
                   value: emailAuthCubit!,
                   child: Container(),
                 ));
+
       case mycourse:
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
@@ -82,8 +85,29 @@ class AppRouter {
           ),
         );
 
+              case lecture:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<UplodingDataCubit>.value(value: uplodingDataCubit!),
+              BlocProvider<GetMethodCubit>.value(value: getMethodCubit!)
+            ],
+            child: LectureScreen(),
+          ),
+        );
+                   case contant:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<UplodingDataCubit>.value(value: uplodingDataCubit!),
+              BlocProvider<GetMethodCubit>.value(value: getMethodCubit!)
+            ],
+            child: ContantScreen(),
+          ),
+        );
    case nav:
         return MaterialPageRoute(
+          
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider<GetMethodCubit>.value(value: getMethodCubit!),

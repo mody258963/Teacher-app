@@ -1,35 +1,31 @@
 class Lecture {
   int? id;
-  String? title;
+  String? name;
   String? description;
-  int? teacherId;
-  int? categoryId;
+  int? courseId;
 
   Lecture({
     required this.id,
-    required this.title,
+    required this.name,
     required this.description,
-    required this.teacherId,
-    required this.categoryId,
+    required this.courseId,
   });
 
   factory Lecture.fromJson(Map<String, dynamic> json) {
     return Lecture(
       id: json['id'],
-      title: json['title'],
+      name: json['name'],
       description: json['description'],
-      teacherId: json['teacher_id'],
-      categoryId: json['category_id'],
+      courseId: json['course_id'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'title': title,
+      'name': name,
       'description': description,
-      'teacher_id': teacherId,
-      'category_id': categoryId,
+      'course_id': courseId,
     };
   }
 }

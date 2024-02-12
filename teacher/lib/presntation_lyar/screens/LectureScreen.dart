@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/besnese_logic/get_method/get_method_cubit.dart';
 import 'package:teacher/besnese_logic/get_method/get_method_state.dart';
 import 'package:teacher/costanse/colors.dart';
 import 'package:teacher/costanse/pages.dart';
 
-class CourseScreen extends StatefulWidget {
-  const CourseScreen({super.key});
+class LectureScreen extends StatefulWidget {
+  const LectureScreen({super.key});
 
   @override
-  State<CourseScreen> createState() => _CourseScreenState();
+  State<LectureScreen> createState() => _LectureScreenState();
 }
 
-class _CourseScreenState extends State<CourseScreen> {
+class _LectureScreenState extends State<LectureScreen> {
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    BlocProvider.of<GetMethodCubit>(context).emitGetAllCourseOfTeacher();
+  void initState() {
+    context.read<GetMethodCubit>().emitGetAllLectureOfCourse();
+    super.initState();
   }
 
   Widget _title(String title, BuildContext context) {
@@ -32,53 +31,7 @@ class _CourseScreenState extends State<CourseScreen> {
     double height = MediaQuery.of(context).size.height;
     return BlocBuilder<GetMethodCubit, GetMethodState>(
         builder: (context, state) {
-      if (state is LodingState) {
-        const CircularProgressIndicator();
-      }
       if (state is LectureOfCourseState) {
-        final allUsersList = state.posts;
-        return SizedBox(
-            height: height * 0.767,
-            width: width * 0.95,
-            child: ListView.builder(
-                itemCount: allUsersList.length,
-                itemBuilder: (context, index) {
-                  final user = allUsersList[index];
-                  return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              color: Colors.yellowAccent),
-                          height: height * 0.20,
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  user.name.toString(),
-                                  style: TextStyle(fontSize: width * 0.10),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    print('==============fododod');
-                                  },
-                                )
-                              ],
-                            ),
-                          )));
-                }));
-      }
-      return Container();
-    });
-  }
-
-  Widget _buildCourseAllDataTeacher(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    return BlocBuilder<GetMethodCubit, GetMethodState>(
-        builder: (context, state) {
-      if (state is CourseOfTeacherState) {
         final allUsersList = state.posts;
         return GridView.builder(
             scrollDirection: Axis.vertical,
@@ -94,13 +47,13 @@ class _CourseScreenState extends State<CourseScreen> {
               final user = allUsersList[index];
               return GridTile(
                 header: GridTileBar(
-                  title: Text('${user.title.toString()}',
+                  title: Text('${user.name.toString()}',
                       style: const TextStyle(color: Colors.black)),
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pushNamed(lecture);
+                            Navigator.of(context, rootNavigator: true)
+              .pushNamed(lecture);
                   },
                   child: Container(
                       margin: const EdgeInsets.all(12.0),
@@ -134,11 +87,11 @@ class _CourseScreenState extends State<CourseScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: height * 0.06, right: width * 0.50),
-                      child: _title('Course', context),
+                      padding:
+                          EdgeInsets.only(top: height * 0.06, right: width * 0.50),
+                      child: _title('Lecture', context),
                     ),
-                    _buildCourseAllDataTeacher(context)
+                    _buildLectureAllDataTeacher(context)
                   ],
                 ),
               ),

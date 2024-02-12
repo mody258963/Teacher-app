@@ -9,3 +9,5 @@ const editaccount = '/EDITACCOUNT';
 const mycourse = '/MYCOURSE';
 const search = '/SEARCH';
 const nav = '/NAV';
+const lecture = '/LECTURE';
+const contant = '/CONTANT';
