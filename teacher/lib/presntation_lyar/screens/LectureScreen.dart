@@ -15,7 +15,7 @@ class LectureScreen extends StatefulWidget {
 class _LectureScreenState extends State<LectureScreen> {
   @override
   void initState() {
-    context.read<GetMethodCubit>().emitGetAllLectureOfCourse();
+    BlocProvider.of<GetMethodCubit>(context).emitGetAllLectureOfCourse();
     super.initState();
   }
 
@@ -52,8 +52,8 @@ class _LectureScreenState extends State<LectureScreen> {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                            Navigator.of(context, rootNavigator: true)
-              .pushNamed(lecture);
+                    Navigator.of(context, rootNavigator: true)
+                        .pushNamed(lecture);
                   },
                   child: Container(
                       margin: const EdgeInsets.all(12.0),
@@ -78,25 +78,33 @@ class _LectureScreenState extends State<LectureScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return MaterialApp(
-      home: Scaffold(
-          backgroundColor: MyColors.backcolor,
-          body: ListView(
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: height * 0.06, right: width * 0.50),
-                      child: _title('Lecture', context),
-                    ),
-                    _buildLectureAllDataTeacher(context)
-                  ],
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          BlocProvider.of<GetMethodCubit>(context).emitGetAllCourseOfTeacher();
+        }
+      },
+      child: MaterialApp(
+        home: Scaffold(
+            backgroundColor: MyColors.backcolor,
+            body: ListView(
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: height * 0.06, right: width * 0.50),
+                        child: _title('Lecture', context),
+                      ),
+                      _buildLectureAllDataTeacher(context)
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+      ),
     );
   }
 }

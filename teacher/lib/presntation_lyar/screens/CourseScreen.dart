@@ -15,9 +15,9 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> {
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
     BlocProvider.of<GetMethodCubit>(context).emitGetAllCourseOfTeacher();
+    super.initState();
   }
 
   Widget _title(String title, BuildContext context) {
@@ -88,32 +88,41 @@ class _CourseScreenState extends State<CourseScreen> {
                 crossAxisSpacing: 30,
                 mainAxisSpacing: 0.3,
                 childAspectRatio:
-                    ((width / 0.15) / (height - kToolbarHeight - 24) / 2)),
+                    ((width / 0.20) / (height - kToolbarHeight - 24) / 2)),
             itemCount: allUsersList.length,
             itemBuilder: (context, index) {
               final user = allUsersList[index];
-              return GridTile(
-                header: GridTileBar(
-                  title: Text('${user.title.toString()}',
-                      style: const TextStyle(color: Colors.black)),
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pushNamed(lecture);
-                  },
-                  child: Container(
-                      margin: const EdgeInsets.all(12.0),
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        gradient: const RadialGradient(
-                          colors: <Color>[Color(0x0F88EEFF), Color(0x2F0099BB)],
-                        ),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).pushNamed(lecture);
+                  BlocProvider.of<GetMethodCubit>(context)
+                      .emitGetAllLectureOfCourse();
+                },
+                child: Container(
+                    margin: const EdgeInsets.all(20.0),
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      child: Container()),
-                ),
+                      gradient: const RadialGradient(
+                        colors: <Color>[Color(0x0F88EEFF), Color(0x2F0099BB)],
+                      ),
+                    ),
+                    child: Center(
+                        child: Column(
+                      children: [
+                        Container(
+                          height: height * 0.21,
+                          decoration: ShapeDecoration(
+                            image: DecorationImage(image: NetworkImage('https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg'),fit: BoxFit.cover),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+                              ),
+                              ),
+                              
+                        )
+                      ],
+                    ))),
               );
             });
       }
@@ -138,7 +147,7 @@ class _CourseScreenState extends State<CourseScreen> {
                           top: height * 0.06, right: width * 0.50),
                       child: _title('Course', context),
                     ),
-                    _buildCourseAllDataTeacher(context)
+                    _buildCourseAllDataTeacher(context),
                   ],
                 ),
               ),
