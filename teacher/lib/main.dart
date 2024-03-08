@@ -5,22 +5,22 @@ import 'package:teacher/presntation_lyar/screens/NavigationBar.dart';
 import 'package:teacher/presntation_lyar/widgets/app_router.dart';
 
 String? initialRoute;
-
+String? ids;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Future<String?> getUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('user_id');
-  }
+  final prefs = await SharedPreferences.getInstance();
+  var id = prefs.getString('user_id');
 
-  if (getUserId() != null) {
+
+
+  if (id != null) {
     initialRoute = nav;
   } else {
-    initialRoute = nav;
+    initialRoute = logain;
   }
 
-  print(initialRoute);
+
   runApp(MyApp(
     appRouter: AppRouter(),
   ));

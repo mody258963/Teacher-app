@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/besnese_logic/email_auth/email_auth_cubit.dart';
 import 'package:teacher/costanse/pages.dart';
 
@@ -11,11 +12,14 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String dropdownValue = list.first;
   final TextEditingController namecontroller = TextEditingController();
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
   final TextEditingController cpasswordcontroller = TextEditingController();
   final TextEditingController socialcontroller = TextEditingController();
+
+  static const List<String> list = <String>['EN', 'AR'];
 
   void _Circelindecator(BuildContext context) {
     AlertDialog alertDialog = const AlertDialog(
@@ -36,6 +40,38 @@ class _SignUpState extends State<SignUp> {
         });
   }
 
+  Widget _dropbox() {
+    return DropdownMenu<String>(
+      inputDecorationTheme: InputDecorationTheme(
+          floatingLabelAlignment: FloatingLabelAlignment.start),
+      initialSelection: list.first,
+      onSelected: (String? value) async {
+        // This is called when the user selects an item.
+        setState(()  {
+          dropdownValue = value!;
+      
+        });
+            final prefs = await SharedPreferences.getInstance();
+          if (dropdownValue == 'AR') {
+            prefs.remove('lang1');
+            prefs.remove('lang2');
+            prefs.setString('lang1', 'ar');
+            prefs.setString('lang2', 'en');
+          }else {
+            prefs.remove('lang1');
+            prefs.remove('lang2');
+            prefs.setString('lang1', 'en');
+            prefs.setString('lang2', 'ar');
+          }
+          print(prefs.getString('lang1'));
+           print(prefs.getString('lang2'));
+      },
+      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(value: value, label: value);
+      }).toList(),
+    );
+  }
+
   Widget _buildloginAuth() {
     return BlocListener<EmailAuthCubit, EmailAuthState>(
       listenWhen: (previous, current) {
@@ -52,8 +88,7 @@ class _SignUpState extends State<SignUp> {
         }
         if (state is SignupTeacherSuccess) {
           Navigator.maybePop(context);
-          Navigator.of(context, rootNavigator: true)
-              .pushReplacementNamed(homescreen);
+        Navigator.pushReplacementNamed(context, nav);
         }
       },
       child: Container(),
@@ -76,7 +111,8 @@ class _SignUpState extends State<SignUp> {
         ));
   }
 
-  Widget _TextFeild(String hint, input, int short,int long, BuildContext context) {
+  Widget _TextFeild(
+      String hint, input, int short, int long, BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Container(
@@ -118,11 +154,12 @@ class _SignUpState extends State<SignUp> {
             children: [
               _buildloginAuth(),
               _TitleText('Sign Up'),
-              _TextFeild('Name', namecontroller, 3, 20,context),
-              _TextFeild('Email', emailcontroller, 14,40,  context),
-              _TextFeild('Password', passwordcontroller, 7, 18,context),
-              _TextFeild('Confirm Password', cpasswordcontroller, 7, 18,context),
-              _TextFeild('Social Link', socialcontroller, 20, 500,context),
+              _TextFeild('Name', namecontroller, 3, 20, context),
+              _TextFeild('Email', emailcontroller, 14, 40, context),
+              _TextFeild('Password', passwordcontroller, 7, 18, context),
+              _TextFeild(
+                  'Confirm Password', cpasswordcontroller, 7, 18, context),
+              _TextFeild('Social Link', socialcontroller, 20, 500, context),
               _Button(() {
                 context.read<EmailAuthCubit>().signupTeacher(
                     namecontroller.text,
@@ -130,7 +167,8 @@ class _SignUpState extends State<SignUp> {
                     passwordcontroller.text,
                     cpasswordcontroller.text,
                     socialcontroller.text);
-              })  
+              }),
+              _dropbox()
             ],
           ),
         ),

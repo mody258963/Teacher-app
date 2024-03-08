@@ -1,8 +1,8 @@
 
 import 'package:flutter/widgets.dart';
+import 'package:teacher/web_servese/model/catogry.dart';
 import 'package:teacher/web_servese/model/course.dart';
 import 'package:teacher/web_servese/model/lecture.dart';
-import 'package:teacher/web_servese/model/teacherCourse.dart';
 
 import '../../web_servese/model/username.dart';
 
@@ -22,7 +22,7 @@ class AllItemsState extends GetMethodState {
 }
 
 class CourseOfUserState extends GetMethodState {
- final List<Course> posts;
+ final List<Data> posts;
 
   CourseOfUserState({required this.posts});
 
@@ -30,7 +30,7 @@ class CourseOfUserState extends GetMethodState {
 }
 
 class CourseOfTeacherState extends GetMethodState {
- final List<TecherCourse> posts;
+ final List<Data> posts;
 
   CourseOfTeacherState({required this.posts});
 
@@ -44,4 +44,16 @@ class LectureOfCourseState extends GetMethodState {
 
 
 }
-class Coursefails extends GetMethodState{}
+class CatogoryState extends GetMethodState {
+ final List<dynamic>  posts;
+
+  CatogoryState({required this.posts});
+
+
+}
+class Coursefails extends GetMethodState{
+  final String  message ;
+
+  Coursefails(this.message);
+
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teacher/costanse/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -11,8 +12,23 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(backgroundColor: MyColors.backcolor,
-      body: Center(child: Text('Profile'),)
-    ),);
+    return MaterialApp(
+      home: Scaffold(
+          backgroundColor: MyColors.backcolor,
+          body: Center(
+            child: Column(
+              children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: ElevatedButton(
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.remove('user_id');
+                    },
+                    child: Text('toto')),
+              )
+            ]),
+          )),
+    );
   }
 }

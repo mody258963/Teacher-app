@@ -1,11 +1,9 @@
 
-import 'package:teacher/presntation_lyar/screens/SignUp.dart';
 import 'package:teacher/web_servese/dio/web_serv.dart';
 import 'package:teacher/web_servese/model/course.dart';
 import 'package:teacher/web_servese/model/lecture.dart';
-import 'package:teacher/web_servese/model/teacherCourse.dart';
 import 'package:teacher/web_servese/model/username.dart';
-
+import 'package:teacher/web_servese/model/catogry.dart';
 
 
 class MyRepo {
@@ -19,16 +17,16 @@ class MyRepo {
     return userList..shuffle();
   }
 
-  Future<List<Course>> getAllCourseOfUser(String end) async {
+  Future<List<Data>> getAllCourseOfUser(String end) async {
     final names = await nameWebService.get(end);
-    final courseList = names.map((names) => Course.fromJson(names)).toList();
+    final courseList = names.map((names) => Data.fromJson(names)).toList();
     return courseList..shuffle();
   }
 
 
-  Future<List<TecherCourse>> getAllCourseOfTeacher(String end) async {
+  Future<List<Data>> getAllCourseOfTeacher(String end) async {
     final names = await nameWebService.get(end);
-    final courseList = names.map((names) => TecherCourse.fromJson(names)).toList();
+    final courseList = names.map((names) => Data.fromJson(names)).toList();
     return courseList..shuffle();
   }
     Future<List<Lecture>> getAllLectureOfCourse(String end) async {
@@ -36,6 +34,13 @@ class MyRepo {
     final courseList = names.map((names) => Lecture.fromJson(names)).toList();
     return courseList..shuffle();
   }
+
+      Future<List<dynamic>> getAllCatogory(String end) async {
+    final names = await nameWebService.get(end);
+    final courseList = names.map((names) => Category.fromJson(names)).toList();
+    return courseList..shuffle();
+  }
+
 
 
   Future<String> login(String end, Object data) async {
@@ -84,6 +89,21 @@ class MyRepo {
 
       if (result.isNotEmpty) {
         final audio = result.map((audio) => User.fromJson(audio)).toList();
+        return audio..shuffle();
+      } else {
+        throw Exception("Invalid response format: Empty response");
+      }
+    } catch (e) {
+      print("Error during login: ${e.toString()}");
+      throw Exception("Failed to login. Please try again.");
+    }
+  }
+    Future<List<Data>> CourseUpload(String end, Object data) async {
+    try {
+      final result = await nameWebService.post(end, data);
+
+      if (result.isNotEmpty) {
+        final audio = result.map((audio) => Data.fromJson(audio)).toList();
         return audio..shuffle();
       } else {
         throw Exception("Invalid response format: Empty response");

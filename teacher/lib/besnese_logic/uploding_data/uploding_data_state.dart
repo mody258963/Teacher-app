@@ -18,4 +18,6 @@ class GetDataFromUi extends UplodingDataState {
   GetDataFromUi({required this.data});
 }
 
+class Uploaded extends UplodingDataState {}
+
 class PhoneOTPVerified extends UplodingDataState {}

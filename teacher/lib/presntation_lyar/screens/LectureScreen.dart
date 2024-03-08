@@ -45,33 +45,36 @@ class _LectureScreenState extends State<LectureScreen> {
             itemCount: allUsersList.length,
             itemBuilder: (context, index) {
               final user = allUsersList[index];
-              return GridTile(
-                header: GridTileBar(
-                  title: Text('${user.name.toString()}',
-                      style: const TextStyle(color: Colors.black)),
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pushNamed(lecture);
-                  },
-                  child: Container(
-                      margin: const EdgeInsets.all(12.0),
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        gradient: const RadialGradient(
-                          colors: <Color>[Color(0x0F88EEFF), Color(0x2F0099BB)],
-                        ),
-                      ),
-                      child: Container()),
-                ),
-              );
+              return _contaner(user);
             });
       }
       return Container();
     });
+  }
+
+  Widget _contaner(user) {
+    return GridTile(
+      header: GridTileBar(
+        title: Text('${user.name.toString()}',
+            style: const TextStyle(color: Colors.black)),
+      ),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context, rootNavigator: true).pushNamed(lecture);
+        },
+        child: Container(
+            margin: const EdgeInsets.all(12.0),
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              gradient: const RadialGradient(
+                colors: <Color>[Color(0x0F88EEFF), Color(0x2F0099BB)],
+              ),
+            ),
+            child: Container()),
+      ),
+    );
   }
 
   @override
@@ -88,21 +91,17 @@ class _LectureScreenState extends State<LectureScreen> {
       child: MaterialApp(
         home: Scaffold(
             backgroundColor: MyColors.backcolor,
-            body: ListView(
-              children: [
-                Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: height * 0.06, right: width * 0.50),
-                        child: _title('Lecture', context),
-                      ),
-                      _buildLectureAllDataTeacher(context)
-                    ],
+            body: Center(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: height * 0.06, right: width * 0.50),
+                    child: _title('Lecture', context),
                   ),
-                ),
-              ],
+                  _buildLectureAllDataTeacher(context)
+                ],
+              ),
             )),
       ),
     );

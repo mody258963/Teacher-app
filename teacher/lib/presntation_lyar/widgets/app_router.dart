@@ -35,7 +35,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => BlocProvider<EmailAuthCubit>.value(
                   value: emailAuthCubit!,
-                  child: LoginScreen(),
+                  child: const SignUp(),
                 ));
       case signup:
         return MaterialPageRoute(
