@@ -92,7 +92,7 @@ class AppRouter {
               BlocProvider<UplodingDataCubit>.value(value: uplodingDataCubit!),
               BlocProvider<GetMethodCubit>.value(value: getMethodCubit!)
             ],
-            child: LectureScreen(),
+            child: const LectureScreen(course_id: null,),
           ),
         );
                    case contant:

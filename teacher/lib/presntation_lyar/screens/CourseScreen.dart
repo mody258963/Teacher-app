@@ -130,7 +130,10 @@ class _CourseScreenState extends State<CourseScreen> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                return Navigator.of(context).pop();
+                  titleController.clear();
+            bookController.clear();
+            descriptionController.clear();
+               Navigator.of(context).pop();
               },
               child: Text('OK'),
             ),
@@ -209,8 +212,10 @@ class _CourseScreenState extends State<CourseScreen> {
     return BlocListener<UplodingDataCubit, UplodingDataState>(
       listener: (context, state) {
         if (state is Uploaded) {
+
           _showSuccessDialog(
               context, 'Your data has been uploaded successfully');
+
             
         } else if (state is Error) {
           _showErrorDialog(context, 'Erorr');
@@ -390,7 +395,7 @@ class _CourseScreenState extends State<CourseScreen> {
       onTap: () {
           PersistentNavBarNavigator.pushNewScreen(
         context,
-        screen:  LectureScreen(),
+        screen:  LectureScreen(course_id: user.first.id),
         withNavBar: true, // OPTIONAL VALUE. True by default.
         pageTransitionAnimation: PageTransitionAnimation.cupertino,
     );

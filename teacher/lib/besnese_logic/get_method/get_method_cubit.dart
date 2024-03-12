@@ -57,7 +57,7 @@ class GetMethodCubit extends Cubit<GetMethodState> {
       prefs.remove('course_id');
       prefs.setInt('course_id', result);
 
-      print('===posts====$result');
+      print('===Course_id====$result');
     
       emit(CourseOfTeacherState(posts: posts));
     } catch (e) {
@@ -72,7 +72,7 @@ class GetMethodCubit extends Cubit<GetMethodState> {
       final id = prefs.getInt('course_id');
 
       emit(LodingState());
-      List<Lecture> posts =
+      List<Lec> posts =
           await myRepo.getAllLectureOfCourse('get-all/lecture/$id');
 
       print('===posts2====$posts');

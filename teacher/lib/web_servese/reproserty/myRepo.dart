@@ -29,9 +29,9 @@ class MyRepo {
     final courseList = names.map((names) => Data.fromJson(names)).toList();
     return courseList..shuffle();
   }
-    Future<List<Lecture>> getAllLectureOfCourse(String end) async {
+    Future<List<Lec>> getAllLectureOfCourse(String end) async {
     final names = await nameWebService.get(end);
-    final courseList = names.map((names) => Lecture.fromJson(names)).toList();
+    final courseList = names.map((names) => Lec.fromJson(names)).toList();
     return courseList..shuffle();
   }
 
@@ -105,6 +105,21 @@ class MyRepo {
       if (result.isNotEmpty) {
         final audio = result.map((audio) => Data.fromJson(audio)).toList();
         return audio..shuffle();
+      } else {
+        throw Exception("Invalid response format: Empty response");
+      }
+    } catch (e) {
+      print("Error during login: ${e.toString()}");
+      throw Exception("Failed to login. Please try again.");
+    }
+  }
+    Future<List<Lec>> LectureUpload(String end, Object data) async {
+    try {
+      final result = await nameWebService.post(end, data);
+
+      if (result.isNotEmpty) {
+        final lecture = result.map((lecture) => Lec.fromJson(lecture)).toList();
+        return lecture..shuffle();
       } else {
         throw Exception("Invalid response format: Empty response");
       }

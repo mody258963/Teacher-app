@@ -38,12 +38,13 @@ class CourseOfTeacherState extends GetMethodState {
 }
 
 class LectureOfCourseState extends GetMethodState {
- final List<Lecture> posts;
+ final List<Lec> posts;
 
   LectureOfCourseState({required this.posts});
 
 
 }
+
 class CatogoryState extends GetMethodState {
  final List<dynamic>  posts;
 

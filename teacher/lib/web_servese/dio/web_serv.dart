@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:teacher/costanse/strings.dart';
 import 'package:dio/dio.dart';
 
@@ -24,7 +27,10 @@ class NameWebServise {
 
   Future<List<dynamic>> post(String end, Object data) async {
     try {
-      final response = await dio.post(baseUrl + end, data: data);
+      final response = await dio.post(baseUrl + end,
+          data: data,
+          );
+    
 
       print('========$response');
       return [response.data];

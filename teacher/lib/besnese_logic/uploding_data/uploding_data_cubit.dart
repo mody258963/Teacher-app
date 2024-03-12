@@ -57,4 +57,30 @@ class UplodingDataCubit extends Cubit<UplodingDataState> {
       emit(ErrorOccurred(errorMsg: error.toString()));
     }
   }
+
+    Future<void> uploadLectureAndSaveUrls(String title,
+      String description) async {
+    final prefs = await SharedPreferences.getInstance();
+    final id = prefs.getInt('course_id');
+    print('==========id Lecture======= $id');
+    emit(Loading());
+    try {
+      FormData formData = FormData.fromMap({
+        'title': title,
+        'description': description,
+      });
+      List<dynamic> getfile =
+          await myRepo.LectureUpload('/add-lecture/$id', formData);
+          
+      await Future.delayed(const Duration(seconds: 2));
+      if (getfile.isEmpty) {
+        return print('=============erorr2=======');
+      } else {
+        emit(Uploaded());
+      }
+    } catch (error) {
+      print('===========eroor==============${error.toString()}');
+      emit(ErrorOccurred(errorMsg: error.toString()));
+    }
+  }
 }
